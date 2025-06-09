@@ -1,0 +1,166 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    --background: 220 13% 9%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 13% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 13% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 193 97% 68%;
+    --primary-foreground: 220 13% 9%;
+
+    --secondary: 220 13% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 13% 16%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 193 97% 68%;
+    --accent-foreground: 220 13% 9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 20%;
+    --input: 220 13% 16%;
+    --ring: 193 97% 68%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 193 97% 68%;
+    --sidebar-primary-foreground: 220 13% 9%;
+    --sidebar-accent: 220 13% 16%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 193 97% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    min-height: 100vh;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #22d3ee 0%, #0ea5e9 100%);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #67e8f9 0%, #38bdf8 100%);
+  }
+}
+
+@layer components {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+  }
+
+  .message-bubble {
+    position: relative;
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .message-bubble::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(14, 165, 233, 0.1));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+  }
+
+  .typing-dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+    border-radius: 50%;
+    animation: typing-bounce 1.5s infinite;
+  }
+
+  .typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typing-bounce {
+    0%, 60%, 100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(45deg, #22d3ee, #0ea5e9);
+    border-radius: 50%;
+    animation: float-particle 3s infinite linear;
+  }
+
+  @keyframes float-particle {
+    0% {
+      transform: translateY(100vh) scale(0);
+    }
+    10% {
+      transform: translateY(90vh) scale(1);
+    }
+    90% {
+      transform: translateY(10vh) scale(1);
+    }
+    100% {
+      transform: translateY(0vh) scale(0);
+    }
+  }
+}
