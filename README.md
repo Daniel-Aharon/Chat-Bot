@@ -1,124 +1,186 @@
-# AI Chat Application
+# Chat Bot Application
 
-A full-stack chat application that leverages OpenAI's GPT-3.5 Turbo model to provide intelligent conversational responses. The application features a modern React frontend with real-time WebSocket communication and a FastAPI backend.
+A full-stack chat application with a React frontend and FastAPI backend, containerized using Docker.
 
-## 🚀 Features
-
-- Real-time chat interface with WebSocket support
-- Integration with OpenAI's GPT-3.5 Turbo model
-- Modern, responsive UI built with React and Tailwind CSS
-- Session-based conversation history
-- TypeScript support for better development experience
-- FastAPI backend with async support
-
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 .
-├── frontend/               # React + TypeScript frontend
-│   ├── src/               # Source code
-│   ├── public/            # Static assets
-│   └── [config files]     # TypeScript, Vite, and other configs
-├── backend/               # FastAPI backend
-│   ├── app.py            # Main application file
-│   └── requirements.txt   # Python dependencies
-└── venv/                 # Python virtual environment
+├── frontend/           # React frontend application
+├── backend/           # FastAPI backend application
+├── docker-compose.yml # Docker Compose configuration
+└── README.md
 ```
 
-## 🛠️ Technology Stack
+## Prerequisites
+
+- Docker
+- Docker Compose
+- OpenAI API Key
+
+## Quick Start
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd api-chat-bot
+```
+
+2. Create a `.env` file in the root directory with your OpenAI API key:
+```
+OPENAI_API_KEY=your_api_key_here
+```
+
+3. Run the application using Docker Compose:
+```bash
+docker-compose up
+```
+
+The application will be available at:
+- Frontend: http://localhost:8001
+- Backend: http://localhost:8000
+
+## Docker Images
+
+The application uses two Docker images:
+
+1. Frontend (`danielaharon555/chat_bot_frontend:1.0.0`)
+   - Built with Node.js and Nginx
+   - Serves the React application
+   - Exposed on port 8001
+
+2. Backend (`danielaharon555/chat_bot_backend:1.0.0`)
+   - Built with Python and FastAPI
+   - Handles chat functionality
+   - Exposed on port 8000
+
+## Manual Build and Run
 
 ### Frontend
-- React with TypeScript
-- Vite for build tooling
-- Tailwind CSS for styling
-- shadcn-ui for UI components
-- WebSocket for real-time communication
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Build the Docker image:
+```bash
+docker build -t chat_bot_frontend:1.0.0 .
+```
+
+3. Run the container:
+```bash
+docker run -p 8001:8001 chat_bot_frontend:1.0.0
+```
 
 ### Backend
-- FastAPI (Python)
-- OpenAI API integration
-- WebSocket support
-- Environment variable management with python-dotenv
 
-## 🚀 Getting Started
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
 
-### Prerequisites
-- Node.js & npm (for frontend)
-- Python 3.8+ (for backend)
-- OpenAI API key
+2. Build the Docker image:
+```bash
+docker build -t chat_bot_backend:1.0.0 .
+```
 
-### Backend Setup
+3. Run the container:
+```bash
+docker run -p 8000:8000 -e OPENAI_API_KEY=your_api_key_here chat_bot_backend:1.0.0
+```
 
-1. Create and activate a virtual environment:
+## Docker Compose
+
+The `docker-compose.yml` file orchestrates both services:
+
+```yaml
+version: '3.8'
+
+services:
+  frontend:
+    image: danielaharon555/chat_bot_frontend:1.0.0
+    ports:
+      - "8001:8001"
+    depends_on:
+      - backend
+    networks:
+      - chat-network
+
+  backend:
+    image: danielaharon555/chat_bot_backend:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    networks:
+      - chat-network
+
+networks:
+  chat-network:
+    driver: bridge
+```
+
+## Development
+
+### Frontend Development
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start development server:
+```bash
+npm run dev
+```
+
+### Backend Development
+
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
+
+2. Create and activate virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-2. Install backend dependencies:
+3. Install dependencies:
 ```bash
-cd backend
 pip install -r requirements.txt
 ```
 
-3. Create a `.env` file in the backend directory:
-```
-OPENAI_API_KEY=your_api_key_here
-```
-
-### Frontend Setup
-
-1. Install frontend dependencies:
+4. Start development server:
 ```bash
-cd frontend
-npm install
-```
-
-2. Start the development server:
-```bash
-npm run dev
-```
-
-## 🏃‍♂️ Running the Application
-
-1. Start the backend server:
-```bash
-cd backend
 python app.py
 ```
 
-2. In a separate terminal, start the frontend:
-```bash
-cd frontend
-npm run dev
-```
+## API Endpoints
 
-The application will be available at `http://localhost:5173` (frontend) and `http://localhost:8000` (backend).
+- `GET /health`: Health check endpoint
+- `POST /chat`: Chat endpoint for sending messages
+- `WS /ws/{session_id}`: WebSocket endpoint for real-time chat
 
-## 🔧 Development
+## Environment Variables
 
-### Frontend Development
-- The frontend uses Vite for fast development and building
-- TypeScript provides type safety and better development experience
-- Tailwind CSS is used for styling
-- shadcn-ui components are available for consistent UI
+- `OPENAI_API_KEY`: Your OpenAI API key (required for backend)
 
-### Backend Development
-- FastAPI provides automatic API documentation at `/docs`
-- WebSocket support for real-time communication
-- Conversation history is maintained per session
-- Error handling for API failures
+## Contributing
 
-## 🔒 Security Notes
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
 
-- Never commit your OpenAI API key to version control
-- Keep your `.env` file secure and local
-- The application uses environment variables for sensitive data
+## License
 
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. 
+This project is licensed under the MIT License - see the LICENSE file for details. 
