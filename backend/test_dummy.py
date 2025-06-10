@@ -1,2 +1,2 @@
-def tesy_dummy_pass():
+def test_dummy_pass():
     assert True
