@@ -22,7 +22,7 @@ A full-stack chat application with a React frontend and FastAPI backend, contain
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Daniel-Aharon/Chat-Bot.git
 cd api-chat-bot
 ```
 
