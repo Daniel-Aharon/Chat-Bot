@@ -9,6 +9,9 @@ A full-stack chat application with a React frontend and FastAPI backend, contain
 ├── frontend/           # React frontend application
 ├── backend/           # FastAPI backend application
 ├── docker-compose.yml # Docker Compose configuration
+├── .github/
+│   └── workflows/
+│       └── ci.yml     # GitHub Actions workflow for CI
 └── README.md
 ```
 
@@ -163,6 +166,11 @@ pip install -r requirements.txt
 python app.py
 ```
 
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration.  
+The workflow is defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) and runs tests and checks for both frontend and backend on every push and pull request.
+
 ## API Endpoints
 
 - `GET /health`: Health check endpoint
@@ -183,4 +191,4 @@ python app.py
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
