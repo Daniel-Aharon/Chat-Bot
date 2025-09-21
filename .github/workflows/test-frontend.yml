@@ -8,6 +8,8 @@ jobs:
               uses: actions/checkout@v5
             - name: Go to frontend folder
               run: cd frontend
+            - name: List folders
+              run: ls -la
             - name: Install NodeJS
               uses: actions/setup-node@v3
               with:
