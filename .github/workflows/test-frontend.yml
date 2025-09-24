@@ -1,0 +1,42 @@
+name: Deploy Project
+on: [push, workflow_dispatch]
+jobs:
+    Testing:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            - name: Get code
+              uses: actions/checkout@v5
+            - name: List folders
+              run: ls -la
+            - name: Install NodeJS
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: Install dependencies
+              run: npm ci
+            - name: Run tests
+              run: npm test
+    Deploy:
+      needs: [Testing]
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./frontend
+      steps:
+          - name: Get code
+            uses: actions/checkout@v5
+          - name: List folders
+            run: ls -la
+          - name: Install NodeJS
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18
+          - name: Install dependencies
+            run: npm ci
+          - name: Build project
+            run: npm run build
+          - name: Deploy
+            run: echo "Deoloying ..."
